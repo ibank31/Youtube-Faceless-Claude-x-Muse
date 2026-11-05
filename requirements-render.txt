@@ -1,0 +1,4 @@
+pycairo>=1.25
+numpy>=1.26
+soundfile>=0.12
+pyyaml>=6.0

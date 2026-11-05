@@ -1,0 +1,19 @@
+# APPROVED by Iqbal on 2026-11-05. Do not change thresholds after the first upload. Changes need a new commit with a reason.
+niche: cosmic / real-data scale comparison (NO licensed characters, NO pop-culture IP)
+evaluate_each_video_days_after_upload: 7
+episodes:
+  - {id: ep001, format: A_log_zoom,        note: "Atom to the Observable Universe (pilot)"}
+  - {id: ep002, format: A_log_zoom,        note: "second zoom, different object set"}
+  - {id: ep003, format: B_how_many_fit,    note: "How many X fit inside Y (exact computed counts)"}
+  - {id: ep004, format: B_how_many_fit,    note: ""}
+  - {id: ep005, format: C_star_swap,       note: "If star S replaced our Sun"}
+  - {id: ep006, format: C_star_swap,       note: ""}
+  - {id: ep007, format: D_distance_light,  note: "True-scale distance / light-travel time"}
+  - {id: ep008, format: D_distance_light,  note: ""}
+decision_after_8_videos:
+  green:  "any video >= 250000 views OR >= 3 videos >= 50000 views -> double down on the best format"
+  yellow: "none green but >= 1 video >= 25000 views -> 4 more episodes with different hooks/format"
+  red:    "none >= 25000 views -> stop, pivot to the next-best niche from research/results"
+monetization_targets:
+  tier1: "500 subscribers + 3 uploads in 90 days + 3M Shorts views (or 3000 watch hours); verify current rules before claiming"
+  note: "Thresholds for the full ad tier double on 2027-02-01 per reports; verify on YouTube's official page."

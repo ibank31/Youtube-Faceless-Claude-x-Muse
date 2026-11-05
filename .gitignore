@@ -6,3 +6,8 @@ __pycache__/
 research/cache/
 renders/*
 !renders/.gitkeep
+!renders/*/
+renders/*/*
+!renders/*/qc_report.json
+!renders/*/*.events.json
+!renders/*/*.contact.png
