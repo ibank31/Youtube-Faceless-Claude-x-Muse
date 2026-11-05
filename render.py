@@ -23,7 +23,8 @@ sid = ep.spec["id"]
 ev = ep.events()
 (out / f"{sid}.events.json").write_text(json.dumps(
     {"id": sid, "duration_s": ep.D, "fps": ep.FPS, "width": ep.W, "height": ep.H, "center_y": ep.cy,
-     "ratio_universe_over_atom": ep.ratio, "events": ev}, indent=2, ensure_ascii=False))
+     "ratio_universe_over_atom": ep.ratio, "label_coverage": round(ep.label_coverage()[0], 4),
+     "label_gaps_s": ep.label_coverage()[1][:20], "events": ev}, indent=2, ensure_ascii=False))
 if a.stills:
     for s in a.stills.split(","):
         ep.draw(float(s))

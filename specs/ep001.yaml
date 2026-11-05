@@ -1,38 +1,34 @@
-# Episode 001 - Format A (log-scale zoom). All numbers on screen are derived from these values.
+# Episode 001 v2 - Format A (log-scale zoom), revised after review round 1 (Iqbal: reject, 4 points).
+# Every on-screen number is derived from these values. v1 was never published.
 id: ep001
 title: "Atom to the Observable Universe"
-format: A_log_zoom
+format: A_log_zoom_v2
 video: {width: 1080, height: 1920, fps: 30}
 layout: {center_y: 900}
 timeline:
-  zoom_seconds: 34.0        # time to zoom from first to last object
-  hold_seconds: 3.0         # final reveal hold (slow creep keeps it moving)
-  label_center_px: 220      # ring radius at which an object "arrives" (audio blip + label center)
-  start_radius_px: 330      # first object's ring radius at t=0
-  end_radius_px: 480        # last object's ring radius when the zoom ends
-  slow_center_shift: 0.17   # slow zone center, in orders of magnitude after arrival
-  slow_halfwidth: 0.45
-  ramp: 0.6
-  slow_speed: 0.62          # relative speed inside slow zones (orders/s before scaling)
-  fast_speed: 3.2           # relative speed between objects
-  end_creep: 0.04           # orders/s during the hold
+  hold_radius_px: 270        # ring radius while an object is "held" full-frame
+  first_hold_seconds: 2.8    # includes the hook
+  hold_seconds: 2.0          # each middle object holds this long (label + comparison readable)
+  last_hold_seconds: 4.0     # universe + final ratio
+  transition_seconds: 0.95   # zoom-out between two objects (eases to a full stop = a "beat")
+  hold_creep: 0.015          # orders/s of slow zoom while holding (keeps the frame alive)
+  final_ratio_delay: 1.7     # seconds into the last hold before the ratio replaces the comparison
   loop_crossfade_frames: 12
 text:
   hook_lines: ["HOW BIG IS", "EVERYTHING?"]
   hook_seconds: 2.6
   header: "ATOM \u2192 UNIVERSE"
 audio: {target_lufs: -15.0, seed: 1}
-# value x unit = size. approx=true prints a leading "~". measure = what the number describes.
+# value x unit = size. approx=true prints a leading "~". short = name on the zoom ladder.
+# Dropped vs v1 to keep each beat readable: Mount Everest, One light-year (10 objects, 9 jumps).
 objects:
-  - {name: "Hydrogen atom",        value: 0.1058, unit: nm,         decimals: 3, approx: true,  measure: across, note: "2 x Bohr radius 5.29177e-11 m"}
-  - {name: "Red blood cell",       value: 7.5,    unit: um,         decimals: 1, approx: true,  measure: across, note: "typical 6-8 um"}
-  - {name: "Ant",                  value: 5,      unit: mm,         decimals: 0, approx: true,  measure: long,   note: "typical worker ant, species vary 1-50 mm"}
-  - {name: "Human",                value: 1.7,    unit: m,          decimals: 1, approx: true,  measure: tall,   note: "average adult height"}
-  - {name: "Mount Everest",        value: 8849,   unit: m,          decimals: 0, approx: false, measure: tall,   note: "8,848.86 m (2020 survey)"}
-  - {name: "Earth",                value: 12742,  unit: km,         decimals: 0, approx: false, measure: across, note: "mean diameter, 2 x 6371.0088 km"}
-  - {name: "Sun",                  value: 1.3914, unit: million km, decimals: 3, approx: false, measure: across, note: "IAU 2015 nominal solar radius 6.957e8 m"}
-  - {name: "Neptune's orbit",      value: 60.14,  unit: AU,         decimals: 1, approx: true,  measure: across, note: "2 x 30.07 AU semi-major axis"}
-  - {name: "One light-year",       value: 1,      unit: ly,         decimals: 0, approx: false, measure: long,   note: "defined: 9,460,730,472,580,800 m"}
-  - {name: "Milky Way",            value: 100000, unit: ly,         decimals: 0, approx: true,  measure: across, note: "estimates 87-106 thousand ly"}
-  - {name: "Laniakea Supercluster",value: 520,    unit: million ly, decimals: 0, approx: true,  measure: across, note: "Tully et al. 2014, ~5.2e8 ly"}
-  - {name: "Observable universe",  value: 93,     unit: billion ly, decimals: 0, approx: true,  measure: across, note: "~8.8e26 m"}
+  - {name: "Hydrogen atom",        short: "Atom",      value: 0.1058, unit: nm,         decimals: 3, approx: true,  measure: across, note: "2 x Bohr radius 5.29177e-11 m"}
+  - {name: "Red blood cell",       short: "Cell",      value: 7.5,    unit: um,         decimals: 1, approx: true,  measure: across, note: "typical 6-8 um"}
+  - {name: "Ant",                  short: "Ant",       value: 5,      unit: mm,         decimals: 0, approx: true,  measure: long,   note: "typical worker ant, species vary 1-50 mm"}
+  - {name: "Human",                short: "Human",     value: 1.7,    unit: m,          decimals: 1, approx: true,  measure: tall,   note: "average adult height"}
+  - {name: "Earth",                short: "Earth",     value: 12742,  unit: km,         decimals: 0, approx: false, measure: across, note: "mean diameter, 2 x 6371.0088 km"}
+  - {name: "Sun",                  short: "Sun",       value: 1.3914, unit: million km, decimals: 3, approx: false, measure: across, volume_line: "Earths", note: "IAU 2015 nominal solar radius 6.957e8 m"}
+  - {name: "Neptune's orbit",      short: "Orbit",     value: 60.14,  unit: AU,         decimals: 1, approx: true,  measure: across, note: "2 x 30.07 AU semi-major axis"}
+  - {name: "Milky Way",            short: "Galaxy",    value: 100000, unit: ly,         decimals: 0, approx: true,  measure: across, note: "estimates 87-106 thousand ly"}
+  - {name: "Laniakea Supercluster",short: "Laniakea",  value: 520,    unit: million ly, decimals: 0, approx: true,  measure: across, note: "Tully et al. 2014, ~5.2e8 ly"}
+  - {name: "Observable universe",  short: "Universe",  value: 93,     unit: billion ly, decimals: 0, approx: true,  measure: across, note: "~8.8e26 m"}

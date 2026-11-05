@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Objective QC for a rendered episode. Usage: python qc/check_video.py renders/ep001
 Reads <dir>/<id>.mp4 and <dir>/<id>.events.json, writes <dir>/qc_report.json, exits 1 on any FAIL.
-Uses only ffmpeg/ffprobe + numpy."""
+Uses only ffmpeg/ffprobe + numpy. NOTE: these checks measure technical correctness and on-screen structure
+(labels, comparison block, ladder). They do NOT measure whether the video is engaging; that is a human review."""
 import json
 import re
 import subprocess
@@ -82,6 +83,24 @@ check("ring_radius_at_events", not bad, f"mismatches: {bad}")
 short = [(e["name"], e["label_dwell_s"]) for e in ev["events"] if e["label_dwell_s"] < 1.4]
 check("label_dwell>=1.4s", not short, f"min {min(e['label_dwell_s'] for e in ev['events'])}s; short={short}")
 
+
+# 5b clarity checks (added after review round 1: "circles shrinking and disappearing")
+check("label_coverage>=99%", ev.get("label_coverage", 0) >= 0.99, f"{ev.get('label_coverage')} gaps at {ev.get('label_gaps_s')}")
+gold = lambda f, y0, y1: int((np.abs(f[y0:y1] - np.array([255, 217, 89])).max(axis=2) < 40).sum())  # noqa: E731
+miss = []
+for e in ev["events"][1:]:
+    f = frame(min(e["hold"][0] + 1.2, e["hold"][1] - 0.05))
+    if gold(f, 1250, 1460) < 1500:
+        miss.append(e["name"])
+check("comparison_block_on_every_hold", not miss, f"missing on: {miss}")
+fl = frame(ev["events"][-1]["hold"][1] - 0.4)
+check("final_ratio_visible", gold(fl, 1360, 1560) > 2500, f"{gold(fl, 1360, 1560)} gold px")
+lad = []
+for e in ev["events"]:
+    f = frame(e["hold"][0] + 1.0)
+    lad.append(int(((f[300:1260, 20:280] > 225).all(axis=2)).sum()))
+check("zoom_ladder_visible", min(lad) > 250, f"min bright px {min(lad)}")
+
 # 6 audio loudness / peak
 r = subprocess.run(["ffmpeg", "-nostats", "-i", str(mp4), "-vn", "-af", "ebur128=peak=true", "-f", "null", "-"],
                    capture_output=True, text=True)
@@ -100,7 +119,7 @@ tt = np.arange(len(x)) / sr
 k = int(0.004 * sr)
 offs = []
 for e in ev["events"]:
-    if e["t"] > dur - 0.3:
+    if e["t"] > dur - 0.3 or e["t"] < 0.2:   # first blip starts at t=0 (no pre-roll to compare against)
         continue
     z = x * np.exp(-2j * np.pi * e["blip_hz"] * tt)
     env = np.abs(np.convolve(z, np.ones(k) / k, mode="same"))
