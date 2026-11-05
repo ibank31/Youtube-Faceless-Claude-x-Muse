@@ -1,0 +1,43 @@
+{
+  "generated_at_utc": "2026-11-05T07:11:59+00:00",
+  "python": "3.12.3",
+  "platform": "Linux-7.0.0-39-generic-x86_64-with-glibc2.39",
+  "cpu_count": 4,
+  "memory": {
+    "total_gb": 7.75,
+    "available_gb": 1.15,
+    "swap_total_gb": 1.0
+  },
+  "disk_free_gb": 61.8,
+  "gpu": null,
+  "ffmpeg": {
+    "present": true,
+    "version": "ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "libx264": true,
+    "aac": true
+  },
+  "packages": {
+    "requests": "2.34.2",
+    "yaml": "6.0.3",
+    "numpy": "2.5.4",
+    "scipy": null,
+    "pandas": null,
+    "pymunk": "installed",
+    "cairo": "installed",
+    "skia": null,
+    "PIL": null,
+    "cv2": null,
+    "soundfile": "0.14.0",
+    "mido": null,
+    "pretty_midi": null,
+    "pytrends": null
+  },
+  "youtube_api_key_env_set": false,
+  "bench_2d": {
+    "engine": "pycairo",
+    "frames": 120,
+    "circles_per_frame": 300,
+    "seconds": 1.09,
+    "fps": 110.2
+  }
+}
