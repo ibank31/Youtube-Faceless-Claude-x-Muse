@@ -68,3 +68,31 @@ Successfully installed cffi-2.1.1 numpy-2.5.4 pycairo-1.29.2 pycparser-3.12 pymu
 Import check: `cairo 1.29.2, pymunk 7.3.1, numpy 2.5.4, soundfile 0.14.0`. No system packages or build tools were needed.
 
 **3. Extra niches:** see Q-section above (proposals only).
+
+---
+
+## Update 2026-11-05 14:29 WIB — real run completed (supersedes the "failed" status above)
+
+The blocker is resolved. Iqbal had me create the key in the browser: new API key "API key 1" in existing project **karma-youtube** (karma-youtube-512002), restricted to YouTube Data API v3 only, no billing. (No new project was created: project-creation quota on iqbalteguh01@gmail.com is full since 18 October 2026.) The key is stored on the VM only, outside the repo, and used via the shell environment. `research/env_report.json` was refreshed after the key arrived (`youtube_api_key_env_set: true`, bench 127.4 fps).
+
+Real run: `python research/outlier_finder.py`, exit 0, **quota used 5269** of 10000/day, no early stop, no notes. Output: `research/results/2026-11-05/` (videos.csv: 1739 videos, niche_scores.csv, SUMMARY.md, run_meta.json). Responses are cached in `research/cache/` (git-ignored), so a re-run reuses them at no quota cost.
+
+**Result: exactly one niche passed all frozen criteria.**
+
+| niche | pass | small hits | new hits | base rate (n) | failed |
+|---|---|---|---|---|---|
+| Size / scale comparisons (planets, animals, numbers) | YES | 5 | 9 | 9.1% (55) | - |
+| Math visualizations (Manim-style) | no | 1 | 3 | 3.1% (64) | small_channel_hits |
+| Animated ranking / bar-chart-race data shorts | no | 1 | 1 | 2.9% (34) | small_channel_hits,new_channel_hits,base_rate |
+| Animated maps and geography data | no | 2 | 1 | 2.7% (37) | small_channel_hits,new_channel_hits,base_rate |
+| Sorting / pathfinding algorithm visualizations | no | 1 | 1 | 2.6% (77) | small_channel_hits,new_channel_hits,base_rate |
+| Evolution / natural-selection simulations | no | 1 | 4 | 1.4% (73) | small_channel_hits,base_rate |
+| Marble/ball runs that play a melody | no | 1 | 3 | 1.3% (78) | small_channel_hits,base_rate |
+| Satisfying 2D ball/physics simulations | no | 3 | 10 | 0.0% (70) | small_channel_hits,base_rate |
+| Domino / chain-reaction simulations | no | 2 | 0 | 0.0% (70) | small_channel_hits,new_channel_hits,base_rate |
+| Fractal zooms and procedural patterns | no | 2 | 1 | 0.0% (45) | small_channel_hits,new_channel_hits,base_rate |
+| Generative art (flow fields, cellular automata) | no | 1 | 0 | 0.0% (73) | small_channel_hits,new_channel_hits,base_rate |
+| Particle / sand / fluid-style simulations | no | 0 | 2 | 0.0% (75) | small_channel_hits,base_rate |
+| Kinetic-typography fact shorts (text only) | no | 0 | 0 | 0.0% (85) | small_channel_hits,new_channel_hits,base_rate |
+
+Notes for Claude: scale_comparison passed every check including the 5-small-hit minimum (exactly 5) and the highest base rate in the set (9.1%). The closest miss is math_visual, which clears the base-rate bar (3.1%) but has only 1 small-channel hit. Ball/physics and domino niches show strong new-channel hits (10 and 0 respectively) but a 0.0% base rate in the date-ordered sample, i.e. winners exist but typical recent small-channel uploads do not reach 50k views. The Q1 question above (where the key comes from) is answered by this update; Q2 (re-run timing) is moot for this dataset unless the criteria or niche list changes.
