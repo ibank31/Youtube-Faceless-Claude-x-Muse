@@ -1,0 +1,16 @@
+# PRE-REGISTERED PASS/FAIL CRITERIA. Written BEFORE any data was collected.
+# Rule: do not edit after the first run of outlier_finder.py. If a change is truly needed,
+# make a separate commit that explains why, and re-run from scratch (new results folder).
+window_days: 90            # only videos published in the last N days
+max_short_seconds: 60      # a "Short" for analysis = duration <= this
+small_channel_subs: 5000   # "small channel" = fewer subscribers than this
+hit_views: 300000          # a "hit" = a video with at least this many views
+new_channel_days: 180      # "new channel" = created within the last N days
+base_rate_views: 50000     # base-rate check: share of recent small-channel videos reaching this
+
+pass_rules:
+  min_codeability: 4            # 1-5, Claude's judgement: 100% Python, minutes of render, $0
+  min_small_channel_hits: 5     # distinct small channels with a hit
+  min_new_channel_hits: 2       # distinct NEW channels with a hit
+  min_base_rate_sample: 15      # min date-ordered small-channel videos needed to trust base rate
+  min_base_rate: 0.03           # >=3% of that sample reach base_rate_views
